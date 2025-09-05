@@ -15,6 +15,7 @@ class PublicProjectController extends Controller
 
     public function show(Project $project)
     {
+        $project->load(['comments.user', 'likes']); // Eager load comments and their users, and likes
         return view('projects.show', compact('project'));
     }
 }

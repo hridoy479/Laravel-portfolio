@@ -15,6 +15,7 @@ class PublicBlogController extends Controller
 
     public function show(Blog $blog)
     {
+        $blog->load(['comments.user', 'likes']); // Eager load comments and their users, and likes
         return view('blogs.show', compact('blog'));
     }
 }

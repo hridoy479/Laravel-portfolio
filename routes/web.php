@@ -10,6 +10,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PublicBlogController;
 use App\Http\Controllers\PublicProjectController;
+use App\Http\Controllers\CommentController; // Add this line
+use App\Http\Controllers\LikeController;    // Add this line
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 
@@ -63,6 +65,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    // Comment Routes
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
+
+    // Like Routes
+    Route::post('/likes/toggle', [LikeController::class, 'toggle'])->name('likes.toggle');
 });
 
 require __DIR__.'/auth.php';
