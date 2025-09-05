@@ -18,20 +18,29 @@
 
         {{-- Like Section --}}
         <div class="mt-8 border-t border-gray-700 pt-4">
-            <h3 class="text-xl font-semibold text-white mb-2">Likes: {{ $blog->likes->count() }}</h3>
+            <div class="flex items-center mb-2">
+                <span class="text-xl font-semibold text-white mr-2">{{ $blog->likes->count() }}</span>
+                <span class="text-gray-400">Likes</span>
+            </div>
             @auth
-                <form action="{{ route('likes.toggle') }}" method="POST">
+                <form action="{{ route('likes.toggle') }}" method="POST" class="inline-block">
                     @csrf
                     <input type="hidden" name="likeable_id" value="{{ $blog->id }}">
                     <input type="hidden" name="likeable_type" value="App\Models\Blog">
                     @if($blog->likes->where('user_id', Auth::id())->count())
-                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">Unlike</button>
+                        <button type="submit" class="flex items-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                            <i class="fas fa-heart mr-2"></i> Unlike
+                        </button>
                     @else
-                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">Like</button>
+                        <button type="submit" class="flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full transition duration-300 ease-in-out transform hover:scale-105">
+                            <i class="far fa-heart mr-2"></i> Like
+                        </button>
                     @endif
                 </form>
             @else
-                <p class="text-gray-400">Login to like this blog.</p>
+                <p class="text-gray-400">
+                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Login</a> to like this blog.
+                </p>
             @endauth
         </div>
 
@@ -76,7 +85,9 @@
                     </form>
                 </div>
             @else
-                <p class="text-gray-400 mt-6">Login to add a comment.</p>
+                <p class="text-gray-400 mt-6">
+                    <a href="{{ route('login') }}" class="text-blue-500 hover:underline">Login</a> to add a comment.
+                </p>
             @endauth
         </div>
 

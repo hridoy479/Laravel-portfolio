@@ -9,8 +9,20 @@ class PublicBlogController extends Controller
 {
     public function index()
     {
-        $blogs = Blog::where('status', 'published')->latest()->paginate(10);
-        return view('blogs.index', compact('blogs'));
+        $blogs = Blog::withCount(['comments', 'likes']) // Eager load comment and like counts
+                     ->where('status', 'published')
+                     ->latest()
+                     ->paginate(6); // Changed from 10 to 6
+
+        // Fetch hot topics
+        $hotTopics = Blog::withCount(['comments', 'likes'])
+                         ->where('status', 'published')
+                         ->orderByDesc('likes_count')
+                         ->orderByDesc('comments_count')
+                         ->take(3) // Get top 3 hot topics
+                         ->get();
+
+        return view('blogs.index', compact('blogs', 'hotTopics'));
     }
 
     public function show(Blog $blog)
