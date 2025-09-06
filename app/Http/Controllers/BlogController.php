@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use HTMLPurifier; // Import HTMLPurifier
+use HTMLPurifier_Config; // Import HTMLPurifier_Config
 
 class BlogController extends Controller
 {
@@ -36,6 +38,11 @@ class BlogController extends Controller
         ]);
 
         $data = $request->all();
+
+        // Sanitize HTML content
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+        $data['content'] = $purifier->purify($data['content']);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('blogs', 'public');
@@ -68,6 +75,11 @@ class BlogController extends Controller
         ]);
 
         $data = $request->all();
+
+        // Sanitize HTML content
+        $config = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier($config);
+        $data['content'] = $purifier->purify($data['content']);
 
         if ($request->hasFile('image')) {
             if ($blog->image) {

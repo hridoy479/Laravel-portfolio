@@ -14,6 +14,7 @@ use App\Http\Controllers\CommentController; // Add this line
 use App\Http\Controllers\LikeController;    // Add this line
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about'); // Add this line
 
 // Public Blog Routes
 Route::get('/blogs', [PublicBlogController::class, 'index'])->name('blogs.index');

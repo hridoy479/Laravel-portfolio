@@ -13,4 +13,9 @@ class HomeController extends Controller
     $blogs = Blog::latest()->take(3)->get(); 
     return view('home', compact('blogs'));
 }
+
+    public function about()
+    {
+        return view('about');
+    }
 }

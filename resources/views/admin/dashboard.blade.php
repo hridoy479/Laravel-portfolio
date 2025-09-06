@@ -78,19 +78,18 @@
     <div class="bg-gray-800 p-6 rounded-xl border border-gray-700">
         <h3 class="text-xl font-semibold mb-4">Recent Blog Posts</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            @foreach($recentBlogs ?? [] as $blog)
+            @forelse($latestBlogs as $blog)
             <div class="bg-gray-900 p-4 rounded-lg hover:border-red-500 border border-gray-700 transition">
                 <h4 class="text-lg font-bold mb-2">{{ $blog->title }}</h4>
-                <p class="text-gray-400 mb-2">{{ Str::limit($blog->excerpt, 100) }}</p>
+                <p class="text-gray-400 mb-2">{{ Str::limit(strip_tags($blog->content), 100) }}</p> {{-- Use strip_tags for content --}}
                 <div class="flex justify-between items-center text-gray-400 text-sm">
                     <span>{{ $blog->created_at->format('d M, Y') }}</span>
-                    <a href="{{ route('blog.show', $blog->id) }}" class="text-red-500 hover:text-red-400 transition">Read More</a>
+                    <a href="{{ route('blogs.show', $blog->id) }}" class="text-red-500 hover:text-red-400 transition">Read More</a> {{-- Corrected route --}}
                 </div>
             </div>
-            @endforeach
-            @if(empty($recentBlogs))
+            @empty
                 <p class="text-gray-400">No recent blog posts.</p>
-            @endif
+            @endforelse
         </div>
     </div>
 @endsection

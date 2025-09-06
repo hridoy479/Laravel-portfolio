@@ -93,13 +93,3 @@
     </form>
 </div>
 @endsection
-
-@push('scripts')
-<script>
-    tinymce.init({
-        selector: '#content',
-        plugins: 'advlist autolink lists link image charmap print preview anchor',
-        toolbar_mode: 'floating',
-    });
-</script>
-@endpush

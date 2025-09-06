@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\Blog; // Import Blog model
 
 class DashboardController extends Controller
 {
@@ -13,8 +14,14 @@ class DashboardController extends Controller
         $totalBlogs = \App\Models\Blog::count();
         $totalProjects = \App\Models\Project::count();
         $totalUsers = \App\Models\User::count();
+        
+        // Fetch latest blog posts
+        $latestBlogs = Blog::where('status', 'published')
+                            ->latest()
+                            ->take(5) // Get the 5 latest published blogs
+                            ->get();
 
-        return view('admin.dashboard', compact('totalBlogs', 'totalProjects', 'totalUsers'));
+        return view('admin.dashboard', compact('totalBlogs', 'totalProjects', 'totalUsers', 'latestBlogs'));
     }
 
     // Show all projects

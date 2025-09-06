@@ -64,7 +64,7 @@
             <a href="{{ route('home') }}" class="nav-link relative text-gray-300 hover:text-white">Home</a>
             <a href="{{ route('projects.index') }}" class="nav-link relative text-gray-300 hover:text-white">Projects</a>
             <a href="{{ route('blogs.index') }}" class="nav-link relative text-gray-300 hover:text-white">Blog</a>
-            <a href="#about" class="nav-link relative text-gray-300 hover:text-white">About</a>
+            <a href="{{ route('about') }}" class="nav-link relative text-gray-300 hover:text-white">About</a> {{-- Updated link --}}
             <a href="#contact" class="nav-link relative text-gray-300 hover:text-white">Contact</a>
         </div>
 
@@ -96,7 +96,7 @@
             <a href="{{ route('home') }}" class="text-lg text-gray-300 hover:text-red-500">Home</a>
             <a href="{{ route('projects.index') }}" class="text-lg text-gray-300 hover:text-red-500">Projects</a>
             <a href="{{ route('blogs.index') }}" class="text-lg text-gray-300 hover:text-red-500">Blog</a>
-            <a href="#about" class="text-lg text-gray-300 hover:text-red-500">About</a>
+            <a href="{{ route('about') }}" class="text-lg text-gray-300 hover:text-red-500">About</a> {{-- Updated link --}}
             <a href="#contact" class="text-lg text-gray-300 hover:text-red-500">Contact</a>
             <button class="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-3 rounded-md font-medium">
                 Get in Touch
